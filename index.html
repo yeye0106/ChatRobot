@@ -3,41 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>纯前端多轮对话助手</title>
+    <title>多轮对话助手</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div class="app-container">
+        <!-- 左侧边栏 -->
         <div class="sidebar">
-            <button id="new-chat-btn" class="new-chat-btn">➕ 新建对话</button>
-            <div class="chat-list" id="chat-list">
-                </div>
+            <div class="sidebar-header">
+                <button id="new-chat-btn" class="new-chat-btn">➕ 新建对话</button>
+            </div>
+            <div class="chat-list" id="chat-list"></div>
         </div>
 
+        <!-- 右侧主内容 -->
         <div class="main-content">
-            <header>
-                <h1>💬 多轮对话助手</h1>
-                <p class="instruction">使用说明：左侧可管理历史对话（记录保存在本地）。请填写 API Key 后开始。</p>
+            <!-- 顶部栏 -->
+            <header class="app-header">
+                <div class="header-title">
+                    <h1>🤖 多轮对话助手</h1>
+                    <p>使用说明：左侧可管理历史对话（记录保存在本地）。请填写 API Key 后开始。</p>
+                </div>
+                <button id="toggle-config-btn" class="icon-btn" title="展开设置">⚙️</button>
             </header>
 
-            <div class="config-area">
-                <label for="api-key">API Key:</label>
-                <input type="password" id="api-key" placeholder="输入 sk- 开头的百炼 API Key (刷新不保存)">
-            </div>
+            <!-- 可折叠配置区 -->
+            <div class="config-panel" id="config-panel">
+                <div class="config-grid">
+                    <div class="config-item full-width">
+                        <label>API Key</label>
+                        <div class="input-group">
+                            <input type="password" id="api-key" placeholder="请输入 sk- 开头的 API Key">
+                            <button id="toggle-key-visibility" class="icon-btn" title="显示/隐藏">👁️</button>
+                        </div>
+                    </div>
 
-            <div class="chat-display" id="chat-display">
+                    <div class="config-item">
+                        <label>模型选择</label>
+                        <select id="model-select">
+                            <option value="qwen3.6-flash">Qwen3.6-Flash - 入门极速（响应最快、成本最低）</option>
+                            <option value="qwen3.5-plus-2026-04-20">Qwen3.5-Plus - 均衡性价比（能力成本双优）</option>
+                            <option value="qwen3.6-plus-2026-04-02" selected>Qwen3.6-Plus - 主力旗舰（综合能力无短板）</option>
+                            <option value="qwen3.6-max-preview">Qwen3.6-Max - 能力天花板（顶级效果、极致深度）</option>
+                        </select>
+                    </div>
+
+                    <div class="config-item">
+                        <label>最大生成长度</label>
+                        <input type="number" id="max-tokens" value="2000" min="100" max="4000">
+                    </div>
                 </div>
-
-            <div class="loading-indicator" id="loading-indicator" style="display: none;">
-                <span class="spinner"></span> 模型正在思考中...
             </div>
 
+            <!-- 聊天区域 -->
+            <div class="chat-display" id="chat-display"></div>
+
+            <!-- 底部输入区 -->
             <div class="input-area">
-                <textarea id="user-input" placeholder="请输入您的问题... (Ctrl+Enter 发送)"></textarea>
-                <div class="button-group">
-                    <button id="clear-btn" class="secondary-btn">🗑️ 清空当前屏幕</button>
-                    <button id="send-btn" class="primary-btn">发送消息 🚀</button>
+                <div class="toolbar">
+                    <button id="delete-chat-btn" class="text-btn danger">删除当前对话</button>
+                    <button id="clear-btn" class="text-btn">清空当前屏幕</button>
+                </div>
+                <div class="input-box">
+                    <textarea id="user-input" placeholder="请输入您的问题... (Enter 发送, Shift+Enter 换行)"></textarea>
+                    <button id="send-btn" class="send-btn">发送</button>
                 </div>
             </div>
         </div>
