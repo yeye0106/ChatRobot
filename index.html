@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>纯前端多轮对话助手</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <button id="new-chat-btn" class="new-chat-btn">➕ 新建对话</button>
+            <div class="chat-list" id="chat-list">
+                </div>
+        </div>
+
+        <div class="main-content">
+            <header>
+                <h1>💬 多轮对话助手</h1>
+                <p class="instruction">使用说明：左侧可管理历史对话（记录保存在本地）。请填写 API Key 后开始。</p>
+            </header>
+
+            <div class="config-area">
+                <label for="api-key">API Key:</label>
+                <input type="password" id="api-key" placeholder="输入 sk- 开头的百炼 API Key (刷新不保存)">
+            </div>
+
+            <div class="chat-display" id="chat-display">
+                </div>
+
+            <div class="loading-indicator" id="loading-indicator" style="display: none;">
+                <span class="spinner"></span> 模型正在思考中...
+            </div>
+
+            <div class="input-area">
+                <textarea id="user-input" placeholder="请输入您的问题... (Ctrl+Enter 发送)"></textarea>
+                <div class="button-group">
+                    <button id="clear-btn" class="secondary-btn">🗑️ 清空当前屏幕</button>
+                    <button id="send-btn" class="primary-btn">发送消息 🚀</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
